@@ -33,7 +33,9 @@ namespace Binary_Clock
         TextBlock[] StdA;
         TextBlock[] StdB;
         DispatcherTimer myTimer = new DispatcherTimer();
+        DispatcherTimer myTimerStop = new DispatcherTimer();
         bool mono;
+        DateTime time, timeStart;
         public MainWindow()
         {
             InitializeComponent();
@@ -46,18 +48,15 @@ namespace Binary_Clock
         }
         private void btnShowTime_Click(object sender, RoutedEventArgs e)
         {
-            if (myTimer.IsEnabled)
-            {
-                myTimer.Stop();
-            }
+            if (myTimerStop.IsEnabled) myTimerStop.Stop();
+            if (myTimer.IsEnabled) myTimer.Stop();
+            time = DateTime.Now;
             mono = false;
             ShowTime(mono);
             lblDecimalTime.Content = "      " + DateTime.Now.ToLongTimeString();
         }
-
         public void ShowTime(bool mono)
         {
-            DateTime time = DateTime.Now;
             int timeSekA = time.Second % 10;
             int timeSekB = time.Second / 10;
             int timeMinA = time.Minute % 10;
@@ -87,7 +86,6 @@ namespace Binary_Clock
                 t /= 2;
             }
         }
-
         public void FarbenAendern(TextBlock myT, bool mono)
         {
             if (!mono)
@@ -133,9 +131,9 @@ namespace Binary_Clock
                 myT.Opacity = 1.0;
             }
         }
-
         private void btnRun_Click(object sender, RoutedEventArgs e)
         {
+            if (myTimerStop.IsEnabled) myTimerStop.Stop();
             mono = true;
             if (myTimer.IsEnabled)
             {
@@ -151,13 +149,44 @@ namespace Binary_Clock
         public void TimeRunning()
         {
             myTimer.Interval = TimeSpan.FromMilliseconds(100);
-            myTimer.Tick += myTimerTick;
+            myTimer.Tick += myTimerNow;
             myTimer.Start();
         }
-        void myTimerTick(object sender, EventArgs e)
+        void myTimerNow(object sender, EventArgs e)
         {
             lblDecimalTime.Content = "      " + DateTime.Now.ToLongTimeString();
+            time = DateTime.Now;
             ShowTime(mono);
+        }
+        private void btnStopUhr_Click(object sender, RoutedEventArgs e)
+        {
+            if (myTimer.IsEnabled) myTimer.Stop();
+            textBeschr.Visibility = Visibility.Collapsed;
+            btnStoppUhrStart.Visibility = Visibility.Visible;
+            btnStoppuhrStop.Visibility = Visibility.Visible;
+        }
+        private void btnStoppUhrStart_Click(object sender, RoutedEventArgs e)
+        {
+            if (myTimer.IsEnabled) myTimer.Stop();
+            timeStart = DateTime.Now;
+            myTimerStop.Interval = TimeSpan.FromMilliseconds(100);
+            myTimerStop.Tick += myTimerStop_Tick;
+            myTimerStop.Start();
+        }
+        public void myTimerStop_Tick(object sender, EventArgs e)
+        {
+            TimeSpan timeDiff = DateTime.Now - timeStart;
+            //time = timeStart.AddTicks(timeDiff.Ticks);
+            time = DateTime.MinValue.AddTicks(timeDiff.Ticks);
+            ShowTime(true);
+            lblDecimalTime.Content = "      " + time.ToLongTimeString();
+        }
+        private void btnStoppuhrStop_Click(object sender, RoutedEventArgs e)
+        {
+          if (myTimerStop.IsEnabled)
+            {
+                myTimerStop.Stop();
+            }
         }
     }
 }
