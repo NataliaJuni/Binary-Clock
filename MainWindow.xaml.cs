@@ -32,10 +32,15 @@ namespace Binary_Clock
         TextBlock[] MinB;
         TextBlock[] StdA;
         TextBlock[] StdB;
+        Brush[] colors = new Brush[] {Brushes.Black, Brushes.Red, Brushes.Blue, Brushes.Brown, Brushes.Gray, Brushes.MediumBlue, Brushes.Aquamarine,
+        Brushes.BlueViolet, Brushes.BurlyWood, Brushes.CadetBlue, Brushes.Chocolate, Brushes.Coral, Brushes.CornflowerBlue,
+        Brushes.Crimson, Brushes.Cyan, Brushes.DarkGoldenrod, Brushes.DarkMagenta};
         DispatcherTimer myTimer = new DispatcherTimer();
         DispatcherTimer myTimerStop = new DispatcherTimer();
+        DispatcherTimer myTimerCD = new DispatcherTimer();
         bool mono;
         DateTime time, timeStart;
+        TimeSpan timeDiff;
         public MainWindow()
         {
             InitializeComponent();
@@ -45,6 +50,10 @@ namespace Binary_Clock
             MinB = new TextBlock[] { MinB1, MinB2, MinB3 };
             StdA = new TextBlock[] { StdA1, StdA2, StdA3, StdA4 };
             StdB = new TextBlock[] { StdB1, StdB2 };
+            if (timeDiff == TimeSpan.Zero)
+            {
+                myTimerCD.Stop();
+            }
         }
         private void btnShowTime_Click(object sender, RoutedEventArgs e)
         {
@@ -90,40 +99,9 @@ namespace Binary_Clock
         {
             if (!mono)
             {
-                n = myRandom.Next(5);
-                switch (n)
-                {
-                    case 1:
-                        {
-                            myT.Background = Brushes.Aquamarine;
-                            myT.Opacity = 1.0;
-                            break;
-                        }
-                    case 2:
-                        {
-                            myT.Background = Brushes.DarkSeaGreen;
-                            myT.Opacity = 1.0;
-                            break;
-                        }
-                    case 3:
-                        {
-                            myT.Background = Brushes.DarkCyan;
-                            myT.Opacity = 1.0;
-                            break;
-                        }
-                    case 4:
-                        {
-                            myT.Background = Brushes.YellowGreen;
-                            myT.Opacity = 1.0;
-                            break;
-                        }
-                    default:
-                        {
-                            myT.Background = Brushes.LightCoral;
-                            myT.Opacity = 1.0;
-                            break;
-                        }
-                }
+                n = myRandom.Next(colors.Length);
+                myT.Background = colors[n];
+                myT.Opacity = 1.0;
             }
             else
             {
@@ -134,6 +112,7 @@ namespace Binary_Clock
         private void btnRun_Click(object sender, RoutedEventArgs e)
         {
             if (myTimerStop.IsEnabled) myTimerStop.Stop();
+            if (myTimerCD.IsEnabled) myTimerCD.Stop();
             mono = true;
             if (myTimer.IsEnabled)
             {
@@ -161,6 +140,7 @@ namespace Binary_Clock
         private void btnStopUhr_Click(object sender, RoutedEventArgs e)
         {
             if (myTimer.IsEnabled) myTimer.Stop();
+            if (myTimerCD.IsEnabled) myTimerCD.Stop();
             textBeschr.Visibility = Visibility.Collapsed;
             btnStoppUhrStart.Visibility = Visibility.Visible;
             btnStoppuhrStop.Visibility = Visibility.Visible;
@@ -175,7 +155,7 @@ namespace Binary_Clock
         }
         public void myTimerStop_Tick(object sender, EventArgs e)
         {
-            TimeSpan timeDiff = DateTime.Now - timeStart;
+            timeDiff = DateTime.Now - timeStart;
             //time = timeStart.AddTicks(timeDiff.Ticks);
             time = DateTime.MinValue.AddTicks(timeDiff.Ticks);
             ShowTime(true);
@@ -183,10 +163,35 @@ namespace Binary_Clock
         }
         private void btnStoppuhrStop_Click(object sender, RoutedEventArgs e)
         {
-          if (myTimerStop.IsEnabled)
+            if (myTimerStop.IsEnabled)
             {
                 myTimerStop.Stop();
             }
+        }
+        private void btnCDStart1_Click(object sender, RoutedEventArgs e)
+        {
+            int.TryParse(txtCDMin.Text, out int countDown);
+            timeDiff = TimeSpan.FromMinutes(countDown);
+            myTimerCD.Interval = TimeSpan.FromMilliseconds(100);
+            time = DateTime.MinValue.AddTicks(timeDiff.Ticks);
+            myTimerCD.Tick += myTimerCD_Tick;
+            myTimerCD.Start();
+        }
+        public void myTimerCD_Tick(object sender, EventArgs e)
+        {
+            if (time > DateTime.MinValue)
+            {
+                time = time.AddMilliseconds(-100);
+            }
+            ShowTime(true);
+            lblDecimalTime.Content = "      " + time.ToLongTimeString();
+        }
+        private void btnCDStart_Click(object sender, RoutedEventArgs e)
+        {
+            if (myTimer.IsEnabled) myTimer.Stop();
+            if (myTimerStop.IsEnabled) myTimerStop.Stop();
+            txtCDMin.Visibility = Visibility.Visible;
+            lblCDBeschr.Visibility = Visibility.Visible;
         }
     }
 }

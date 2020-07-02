@@ -68,8 +68,9 @@
         <Button x:Name="btnStoppUhrStart" Background="Gold" Visibility="Collapsed" Content="Start Stoppuhr" HorizontalAlignment="Left" Margin="480,100,0,0" Grid.Row="6" VerticalAlignment="Top" Height="40" FontSize="18" Width="120" Click="btnStoppUhrStart_Click"/>
         <Button x:Name="btnStoppuhrStop" Background="Gold" Content="StopStoppuhr" Visibility="Collapsed" HorizontalAlignment="Left" Margin="630,100,0,0" Grid.Row="6" VerticalAlignment="Top" Width="120" Height="40" FontSize="18" Click="btnStoppuhrStop_Click"/>
         <Label x:Name="lblCDBeschr" Visibility="Collapsed" Content="Bitte geben sie Zeit in min an" HorizontalAlignment="Left" Margin="480,30,0,0" Grid.Row="6" VerticalAlignment="Top" FontSize="18" Width="250" Height="40"/>
-        <TextBox x:Name="txtCDMin" Visibility="Collapsed" HorizontalAlignment="Left" Margin="575,180,0,0" Grid.Row="6" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="40"/>
-        <Button x:Name="btnCDStart" Background="LightBlue" Content="Countdown" HorizontalAlignment="Left" Margin="540,270,0,0" Grid.Row="6" VerticalAlignment="Top" Width="150" Height="40"/>
+        <TextBox x:Name="txtCDMin" Visibility="Collapsed" HorizontalAlignment="Left" Margin="575,180,0,0" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="40"/>
+        <Button x:Name="btnCDStart" Background="LightBlue" Content="Countdown" HorizontalAlignment="Left" Margin="540,270,0,0" Grid.Row="6" VerticalAlignment="Top" Width="150" Height="40" Click="btnCDStart_Click"/>
+        <Button x:Name="btnCDStart1" Content="Start countdown" HorizontalAlignment="Left" Margin="600,350,0,0" Grid.Row="6" VerticalAlignment="Top" Click="btnCDStart1_Click"/>
 
 
     </Grid>
