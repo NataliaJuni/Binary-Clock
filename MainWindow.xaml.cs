@@ -57,13 +57,15 @@ namespace Binary_Clock
         }
         private void btnShowTime_Click(object sender, RoutedEventArgs e)
         {
-            if (myTimerStop.IsEnabled) myTimerStop.Stop();
             if (myTimer.IsEnabled) myTimer.Stop();
+            if (myTimerCD.IsEnabled) myTimerCD.Stop();
+            if (myTimerStop.IsEnabled) myTimerStop.Stop();
             time = DateTime.Now;
             mono = false;
             ShowTime(mono);
             lblDecimalTime.Content = "      " + DateTime.Now.ToLongTimeString();
         }
+        #region Show Time
         public void ShowTime(bool mono)
         {
             int timeSekA = time.Second % 10;
@@ -133,20 +135,15 @@ namespace Binary_Clock
         }
         void myTimerNow(object sender, EventArgs e)
         {
-            lblDecimalTime.Content = "      " + DateTime.Now.ToLongTimeString();
+            lblDecimalTime.Content = "    " + DateTime.Now.ToLongTimeString();
             time = DateTime.Now;
             ShowTime(mono);
         }
-        private void btnStopUhr_Click(object sender, RoutedEventArgs e)
-        {
-            if (myTimer.IsEnabled) myTimer.Stop();
-            if (myTimerCD.IsEnabled) myTimerCD.Stop();
-            textBeschr.Visibility = Visibility.Collapsed;
-            btnStoppUhrStart.Visibility = Visibility.Visible;
-            btnStoppuhrStop.Visibility = Visibility.Visible;
-        }
+        #endregion Show Time
+        #region Stoppuhr
         private void btnStoppUhrStart_Click(object sender, RoutedEventArgs e)
         {
+            if (myTimerCD.IsEnabled) myTimerCD.Stop();
             if (myTimer.IsEnabled) myTimer.Stop();
             timeStart = DateTime.Now;
             myTimerStop.Interval = TimeSpan.FromMilliseconds(100);
@@ -156,10 +153,9 @@ namespace Binary_Clock
         public void myTimerStop_Tick(object sender, EventArgs e)
         {
             timeDiff = DateTime.Now - timeStart;
-            //time = timeStart.AddTicks(timeDiff.Ticks);
             time = DateTime.MinValue.AddTicks(timeDiff.Ticks);
             ShowTime(true);
-            lblDecimalTime.Content = "      " + time.ToLongTimeString();
+            lblDecimalTime.Content = "    " + time.ToLongTimeString();
         }
         private void btnStoppuhrStop_Click(object sender, RoutedEventArgs e)
         {
@@ -168,31 +164,42 @@ namespace Binary_Clock
                 myTimerStop.Stop();
             }
         }
+        #endregion Stoppuhr
+        #region Countdown
         private void btnCDStart1_Click(object sender, RoutedEventArgs e)
         {
-            int.TryParse(txtCDMin.Text, out int countDown);
-            timeDiff = TimeSpan.FromMinutes(countDown);
-            myTimerCD.Interval = TimeSpan.FromMilliseconds(100);
-            time = DateTime.MinValue.AddTicks(timeDiff.Ticks);
-            myTimerCD.Tick += myTimerCD_Tick;
-            myTimerCD.Start();
-        }
-        public void myTimerCD_Tick(object sender, EventArgs e)
-        {
-            if (time > DateTime.MinValue)
-            {
-                time = time.AddMilliseconds(-100);
-            }
-            ShowTime(true);
-            lblDecimalTime.Content = "      " + time.ToLongTimeString();
-        }
-        private void btnCDStart_Click(object sender, RoutedEventArgs e)
-        {
+            // Vorherige Timer stoppen, wenn nötig
             if (myTimer.IsEnabled) myTimer.Stop();
             if (myTimerStop.IsEnabled) myTimerStop.Stop();
-            txtCDMin.Visibility = Visibility.Visible;
-            lblCDBeschr.Visibility = Visibility.Visible;
+            if (myTimerCD.IsEnabled) myTimerCD.Stop();
+            // Zeiteingabe in Minuten ablesen
+            int.TryParse(txtCDMin.Text, out int countDown);
+            // Timer für countdown definieren
+            time = DateTime.MinValue.AddMinutes(countDown);
+            myTimerCD.Interval = TimeSpan.FromSeconds(1);
+            myTimerCD.Tick += myTimerCD_Tick;
+            //Timer für countdown starten
+            myTimerCD.Start();
         }
+
+        private void btnCDStop_Click(object sender, RoutedEventArgs e)
+        {
+            myTimerCD.Stop();
+        }
+
+        public void myTimerCD_Tick(object sender, EventArgs e)
+        {
+            if (time >= DateTime.MinValue.AddSeconds(1))
+            {
+                
+                time = time.AddSeconds(-1);
+            }
+            ShowTime(true);
+            lblDecimalTime.Content = "    " + time.ToLongTimeString();
+        }
+        #endregion Countdown
+
+
     }
 }
 
