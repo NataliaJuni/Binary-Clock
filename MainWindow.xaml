@@ -12,9 +12,10 @@
             <Setter Property="Background" Value="IndianRed" />
         </Style>
     </Window.Resources>
-    <Grid Height="775" VerticalAlignment="Bottom">
+    <Grid Height="760" VerticalAlignment="Bottom">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="450"/>
+            <ColumnDefinition Width="355"/>
+            <ColumnDefinition Width="95"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -22,63 +23,97 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Label Content="Wie spät ist es?" HorizontalAlignment="Left" Margin="100,0,0,0" VerticalAlignment="Center" Height="50" FontSize="24" FontFamily="Algerian"/>
-        <StackPanel Grid.Row="6" Height="200" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,0,0,0">
+        <StackPanel Grid.Row="1" Height="200" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="90,25,0,0">
             <TextBlock x:Name="StdB2" Margin="0,100,0,0" />
             <TextBlock x:Name="StdB1" Margin="0,25,0,0" />
         </StackPanel>
-        <StackPanel Grid.Row="6" Height="200" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,0,0,175">
+        <StackPanel Grid.Row="1" Height="200" Width="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="140,25,0,0">
             <TextBlock x:Name="StdA4"  />
             <TextBlock x:Name="StdA3" Margin="0,25,0,0" />
             <TextBlock x:Name="StdA2" Margin="0,25,0,0" />
             <TextBlock x:Name="StdA1" Margin="0,25,0,0" />
         </StackPanel>
-        <StackPanel Grid.Row="6" Height="200" Width="25" HorizontalAlignment="Left" Margin="200,0,0,0" VerticalAlignment="Top">
+        <StackPanel Grid.Row="1" Height="200" Width="25" HorizontalAlignment="Left" Margin="190,25,0,0" VerticalAlignment="Top">
             <TextBlock x:Name="MinB3" Margin="0,50,0,0" />
             <TextBlock x:Name="MinB2" Margin="0,25,0,0" />
             <TextBlock x:Name="MinB1" Margin="0,25,0,0" />
         </StackPanel>
-        <StackPanel Grid.Row="6" Height="200" Width="25" HorizontalAlignment="Left" Margin="250,0,0,175" VerticalAlignment="Top">
+        <StackPanel Grid.Row="1" Height="200" Width="25" HorizontalAlignment="Left" Margin="240,25,0,0" VerticalAlignment="Top">
             <TextBlock x:Name="MinA4" />
             <TextBlock x:Name="MinA3" Margin="0,25,0,0" />
             <TextBlock x:Name="MinA2" Margin="0,25,0,0" />
             <TextBlock x:Name="MinA1" Margin="0,25,0,0" />
         </StackPanel>
-        <StackPanel Grid.Row="6" Height="200" Width="25" HorizontalAlignment="Left" Margin="300,0,0,175" VerticalAlignment="Top">
+        <StackPanel Grid.Row="1" Height="200" Width="25" HorizontalAlignment="Left" Margin="290,25,0,0" VerticalAlignment="Top">
             <TextBlock x:Name="SekB3" Margin="0,50,0,0" />
             <TextBlock x:Name="SekB2" Margin="0,25,0,0"/>
             <TextBlock x:Name="SekB1" Margin="0,25,0,0"/>
         </StackPanel>
-        <StackPanel Grid.Row="6" Height="200" Width="25" HorizontalAlignment="Left" Margin="350,0,0,175" VerticalAlignment="Top">
+        <StackPanel Grid.Row="1" Height="200" Width="25" HorizontalAlignment="Left" Margin="340,25,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
             <TextBlock x:Name="SekA4" />
             <TextBlock x:Name="SekA3" Margin="0,25,0,0" />
             <TextBlock x:Name="SekA2" Margin="0,25,0,0" />
             <TextBlock x:Name="SekA1" Margin="0,25,0,0" />
         </StackPanel>
-        <Label x:Name="lblDecimalTime" BorderBrush="Black" BorderThickness="2" Content="Decimal Time" HorizontalAlignment="Left" Margin="155,275,0,0" Grid.Row="6" VerticalAlignment="Top" Width="150" Height="40" FontSize="20" FontStretch="Expanded"/>
-        <TabControl Grid.Column="1" Grid.Row="1" Background="Honeydew">
-            <TabItem x:Name="TabUhr" Header="Uhr"  Width="110" Height="30" Margin="0,0,0,1" VerticalAlignment="Bottom">
-                
+        <Label x:Name="lblDecimalTime" BorderBrush="Black" BorderThickness="2" Content="Decimal Time" HorizontalAlignment="Left" Margin="155,275,0,0" Grid.Row="1" VerticalAlignment="Top" Width="150" Height="40" FontSize="20" FontStretch="Expanded"/>
+        <TabControl Grid.Column="2" Grid.Row="1" Background="#FFF0FFFE">
+            <TabItem x:Name="TabUhr" Header="Uhr"  Width="110" Height="30" Margin="0,0,0,1" VerticalAlignment="Bottom" Background="LightSteelBlue">
+
                 <Grid >
-                    <Button x:Name="btnShowTime" Background="Aquamarine" Content="Zeit anzeigen" HorizontalAlignment="Left" Margin="50,50,0,0" Grid.Row="1" VerticalAlignment="Top" Height="40" Width="150" FontSize="20" Click="btnShowTime_Click"/>
-                    <Button x:Name="btnRun" Background="Aquamarine" Content=" Uhr starten" HorizontalAlignment="Left" Margin="50,120,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="20" Height="40" Width="150" Click="btnRun_Click"/>
+                    <Button x:Name="btnShowTime" Background="Aquamarine" Content="Zeit anzeigen" HorizontalAlignment="Left" Margin="50,50,0,0" Grid.Row="1" VerticalAlignment="Top" Height="40" Width="150" FontSize="16" Click="btnShowTime_Click"/>
+                    <Button x:Name="btnRun" Background="Aquamarine" Content=" Uhr starten" HorizontalAlignment="Left" Margin="50,120,0,0" Grid.Row="3" VerticalAlignment="Top" FontSize="16" Height="40" Width="150" Click="btnRun_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Stoppuhr" x:Name="TabStop"  Width="110" Height="30">
-                
+            <TabItem Header="Stoppuhr" Background="SteelBlue"  x:Name="TabStop"  Width="110" Height="30">
+
                 <Grid>
                     <Button x:Name="btnStoppUhrStart" Background="Gold" Content="Start Stoppuhr" HorizontalAlignment="Left" Margin="15,100,0,0" Grid.Row="6" VerticalAlignment="Top" Height="40" FontSize="14" Width="120" Click="btnStoppUhrStart_Click"/>
                     <Button x:Name="btnStoppuhrStop" Background="Gold" Content="StopStoppuhr" HorizontalAlignment="Left" Margin="200,100,0,0" Grid.Row="6" VerticalAlignment="Top" Width="120" Height="40" FontSize="14" Click="btnStoppuhrStop_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="TabCount" Header="Countdown" Width="115">
-               
-                <Grid>
+            <TabItem x:Name="TabCount" Background="SteelBlue"  Header="Countdown" Width="115">
+
+                <Grid >
                     <TextBox x:Name="txtCDMin" HorizontalAlignment="Left" Margin="110,120,0,0" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Width="70" Height="40"/>
-                    <Button x:Name="btnCDStart1" Content="Start countdown" HorizontalAlignment="Left" Margin="80,190,0,0" Grid.Row="6" VerticalAlignment="Top" Click="btnCDStart1_Click" FontSize="16"/>
+                    <Button x:Name="btnCDStart1" Background="LightBlue" Content="Start countdown" HorizontalAlignment="Left" Margin="80,190,0,0" Grid.Row="6" VerticalAlignment="Top" Click="btnCDStart1_Click" FontSize="14" Width="130" Height="30"/>
                     <Label x:Name="lblCDBeschr" Content="Bitte geben sie Zeit in min an" HorizontalAlignment="Left" Margin="30,80,0,0" Grid.Row="6" VerticalAlignment="Top" FontSize="14" Width="250" Height="40"/>
-                    <Button x:Name="btnCDStop" Content="Stop Countdown" HorizontalAlignment="Left" Margin="110,230,0,0" VerticalAlignment="Top" Click="btnCDStop_Click" Height="30" Width="130" FontSize="14"/>
+                    <Button x:Name="btnCDStop" Background="LightBlue" Content="Stop Countdown" HorizontalAlignment="Left" Margin="80,230,0,0" VerticalAlignment="Top" Click="btnCDStop_Click" Height="30" Width="130" FontSize="14"/>
                 </Grid>
             </TabItem>
         </TabControl>
+        <TextBlock HorizontalAlignment="Left" Margin="50,135,0,0"  VerticalAlignment="Top" Width="355" Height="15" Grid.ColumnSpan="2">
+            <TextBlock.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FF1F1616" Offset="0.396"/>
+                    <GradientStop Color="#FF746868" Offset="1"/>
+                </RadialGradientBrush>
+            </TextBlock.Background>
+        </TextBlock>
+        <TextBox HorizontalAlignment="Left" Margin="50,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="15" Height="225">
+            <TextBox.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FF161A18" Offset="0.596"/>
+                    <GradientStop Color="#FF7A5858" Offset="1"/>
+                </RadialGradientBrush>
+            </TextBox.Background>
+        </TextBox>
+
+        <TextBox HorizontalAlignment="Left" Margin="35,0,0,0" Grid.Row="1" VerticalAlignment="Top" Width="15" Height="225" Grid.Column="1">
+            <TextBox.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FF161A18" Offset="0.596"/>
+                    <GradientStop Color="#FF7A5858" Offset="1"/>
+                </RadialGradientBrush>
+            </TextBox.Background>
+        </TextBox>
+        <TextBlock HorizontalAlignment="Left" Margin="50,225,0,0" Grid.Row="1"  VerticalAlignment="Top" Height="15" Width="355" Grid.ColumnSpan="2" >
+            <TextBlock.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="#FF1F1616" Offset="0.396"/>
+                    <GradientStop Color="#FF746868" Offset="1"/>
+                </RadialGradientBrush>
+            </TextBlock.Background>
+        </TextBlock>
+
     </Grid>
 </Window>

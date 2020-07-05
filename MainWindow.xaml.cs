@@ -32,9 +32,12 @@ namespace Binary_Clock
         TextBlock[] MinB;
         TextBlock[] StdA;
         TextBlock[] StdB;
-        Brush[] colors = new Brush[] {Brushes.Black, Brushes.Red, Brushes.Blue, Brushes.Brown, Brushes.Gray, Brushes.MediumBlue, Brushes.Aquamarine,
+        Brush[] colors = new Brush[] {Brushes.Red, Brushes.Blue, Brushes.Brown, Brushes.Gray, Brushes.MediumBlue, Brushes.Aquamarine,
         Brushes.BlueViolet, Brushes.BurlyWood, Brushes.CadetBlue, Brushes.Chocolate, Brushes.Coral, Brushes.CornflowerBlue,
-        Brushes.Crimson, Brushes.Cyan, Brushes.DarkGoldenrod, Brushes.DarkMagenta};
+        Brushes.Crimson, Brushes.Cyan, Brushes.DarkGoldenrod, Brushes.DarkMagenta, Brushes.ForestGreen, Brushes.Fuchsia, Brushes.BlueViolet, Brushes.DarkBlue,
+        Brushes.DarkCyan, Brushes.DarkOliveGreen, Brushes.DarkOrchid, Brushes.DarkRed, Brushes.DarkSalmon, Brushes.DarkSeaGreen, Brushes.DarkSlateBlue,
+        Brushes.DarkSlateGray, Brushes.MediumOrchid, Brushes.MediumPurple, Brushes.MediumSpringGreen, Brushes.MediumTurquoise,Brushes.MediumVioletRed,
+         Brushes.DarkTurquoise, Brushes.DeepSkyBlue, Brushes.DodgerBlue, Brushes.IndianRed, Brushes.Indigo, Brushes.Lavender, Brushes.MediumBlue};
         DispatcherTimer myTimer = new DispatcherTimer();
         DispatcherTimer myTimerStop = new DispatcherTimer();
         DispatcherTimer myTimerCD = new DispatcherTimer();
@@ -171,7 +174,12 @@ namespace Binary_Clock
             // Vorherige Timer stoppen, wenn nötig
             if (myTimer.IsEnabled) myTimer.Stop();
             if (myTimerStop.IsEnabled) myTimerStop.Stop();
-            if (myTimerCD.IsEnabled) myTimerCD.Stop();
+            if (myTimerCD.IsEnabled)
+            {
+                myTimerCD.Stop();
+                myTimerCD.Tick -= myTimerCD_Tick;
+                txtCDMin.Text = " ";
+            }
             // Zeiteingabe in Minuten ablesen
             int.TryParse(txtCDMin.Text, out int countDown);
             // Timer für countdown definieren
@@ -179,23 +187,25 @@ namespace Binary_Clock
             myTimerCD.Interval = TimeSpan.FromSeconds(1);
             myTimerCD.Tick += myTimerCD_Tick;
             //Timer für countdown starten
-            myTimerCD.Start();
+            if (time >DateTime.MinValue) myTimerCD.Start();
         }
 
         private void btnCDStop_Click(object sender, RoutedEventArgs e)
         {
             myTimerCD.Stop();
+            myTimerCD.Tick -= myTimerCD_Tick;
+            txtCDMin.Text = " ";
         }
-
         public void myTimerCD_Tick(object sender, EventArgs e)
         {
             if (time >= DateTime.MinValue.AddSeconds(1))
             {
-                
+
                 time = time.AddSeconds(-1);
             }
             ShowTime(true);
             lblDecimalTime.Content = "    " + time.ToLongTimeString();
+            txtCDMin.Text = time.ToString("mm:ss");
         }
         #endregion Countdown
 
